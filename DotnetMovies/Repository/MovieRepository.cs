@@ -31,12 +31,15 @@ namespace DotnetMovies.Repository
             return Movies.Find(m => m.Id == id);
         }
 
-        public Movie Post(Movie Movie)
+        public Movie Post(Movie movie)
         {
-            Movie.Id = Movies.Max(m => m.Id) + 1;
-            Movies.Add(Movie);
+            if (Movies.Any())
+                movie.Id = Movies.Max(m => m.Id) + 1;
+            else
+                movie.Id = 1;
+            Movies.Add(movie);
 
-            return Movie;
+            return movie;
         }
 
         public Movie Put(Movie Movie)
